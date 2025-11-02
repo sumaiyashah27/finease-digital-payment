@@ -141,6 +141,15 @@ Access the application:
 * Frontend → [http://localhost:5173](http://localhost:5173)
 * Backend → [http://localhost:5000/api](http://localhost:5000/api)
 
+> 🧩 Ensure your `server/.env` contains:
+>
+> ```bash
+> MONGO_URI=mongodb://mongo:27017/finease
+> ```
+>
+> before running Docker.
+
+
 ---
 
 ## ☁️ AWS Deployment – Elastic Beanstalk

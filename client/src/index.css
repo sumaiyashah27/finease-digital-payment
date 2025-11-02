@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Keep this if you still want to use CSS variables */
+:root {
+  --radius: 12px;
+}

@@ -1,52 +1,85 @@
 # 💳 FinEase – Digital Payments Platform
 
-**Tech Stack:** ReactJS · Node.js · Express.js · MongoDB · Stripe · Docker
+**ReactJS · Node.js · Express.js · MongoDB · Stripe · Docker · AWS · GitHub Actions (CI/CD)**
 
-A secure and modern digital payments platform designed to simplify online transactions. FinEase offers tokenized payments, a WCAG-compliant UI, robust backend APIs, and an end-to-end Dockerized setup.
-
-**Security:** 91% | **Usability:** 88% | **Stability:** 90%
+FinEase is a modern **digital payments platform** engineered for secure, scalable, and real-world fintech environments. Built with enterprise-grade principles, it showcases full-stack development, containerization, CI/CD automation, and cloud deployment expertise.
 
 ---
 
-## 🚀 Overview
+## 📘 Overview
 
-FinEase enables businesses to securely handle payments using Stripe integration. It’s built for scalability, accessibility, and simplicity — ideal for fintech applications, payment dashboards, or e-commerce backends.
-
-**Key Features:**
-
-* 🔐 **Secure Stripe Integration** – Tokenization ensures PCI-compliant transactions.
-* ⚙️ **Express.js REST API** – Clean, modular backend for payments and authentication.
-* 💾 **MongoDB Database** – Manages users and payment records efficiently.
-* 🎨 **React + TailwindCSS** – Accessible, responsive, and modern frontend.
-* 🐳 **Dockerized Setup** – One command to spin up the entire stack.
+FinEase enables **secure online transactions**, user authentication, and real-time payment tracking through a responsive React frontend and a robust Node.js backend. Designed for reliability, it uses **Dockerized services**, **Stripe payment integration**, and **AWS-ready infrastructure** to simulate a true fintech production setup.
 
 ---
 
-## 📁 Project Structure
+## ✨ Core Features
+
+* 💳 **Payment Processing:** Secure payment flows powered by Stripe.
+* 🔐 **JWT Authentication:** Safe, tokenized login and session management.
+* ⚙️ **Microservice Architecture:** Independent containers for frontend, backend, and database.
+* 🐳 **Dockerized Infrastructure:** Single-command setup for full stack.
+* ☁️ **AWS Deployable:** Optimized for Elastic Beanstalk or ECS.
+* 🧠 **Automated CI/CD:** GitHub Actions pipeline for testing and deployment.
+* 💅 **Modern UI:** WCAG-compliant, responsive interface built with TailwindCSS.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer              | Technology                                    |
+| ------------------ | --------------------------------------------- |
+| **Frontend**       | ReactJS, Vite, TailwindCSS                    |
+| **Backend**        | Node.js, Express.js                           |
+| **Database**       | MongoDB (via Docker)                          |
+| **Payments**       | Stripe API                                    |
+| **Infrastructure** | Docker, Docker Compose, AWS Elastic Beanstalk |
+| **CI/CD**          | GitHub Actions                                |
+
+---
+
+## 🧱 Architecture
+
+```
+[ React (Vite) ]  →  [ Express API (Node.js) ]  →  [ MongoDB + Stripe ]
+      │                         │
+      ▼                         ▼
+     UI                 Auth + Payments
+```
+
+**Environments:**
+
+* Local: Docker Compose
+* CI/CD: GitHub Actions
+* Production: AWS Elastic Beanstalk (Docker)
+
+---
+
+## 🗂️ Project Structure
 
 ```
 FinEase/
-├── client/                 # React + Vite frontend
-│   ├── src/
-│   ├── Dockerfile
-│   └── .env
-├── server/                 # Node + Express backend
-│   ├── src/
-│   ├── Dockerfile
-│   └── .env
-├── docker-compose.yml      # Docker setup for frontend, backend, and MongoDB
+├── client/               # React frontend (Vite)
+├── server/               # Node + Express backend
+├── aws-deploy/           # AWS deployment configs
+├── .github/workflows/    # CI/CD pipeline
+├── docker-compose.yml
+├── Dockerfile
+├── .gitignore
+├── .dockerignore
 └── README.md
 ```
 
 ---
 
-## 🧱 Prerequisites
+## 🖥️ Screens
 
-Before starting, make sure you have:
-
-* **Docker Desktop** (latest version)
-* **Node.js v20+** and **npm v9+** (for non-Docker runs)
-* A **Stripe Developer Account** (for API keys)
+| Screen                  | Description                                                   |
+| ----------------------- | ------------------------------------------------------------- |
+| **Login Page**          | Secure authentication using JWT and Stripe session validation |
+| **Dashboard**           | Account balance, payment analytics, and recent transactions   |
+| **Payments Page**       | Initiate and manage payment workflows securely                |
+| **Transaction History** | Track and filter successful/failed payments                   |
+| **Admin Panel**         | User and payment management for admin users                   |
 
 ---
 
@@ -54,76 +87,23 @@ Before starting, make sure you have:
 
 ### `server/.env`
 
-```env
+```bash
 PORT=5000
-MONGODB_URI=mongodb://mongo:27017/finease
+MONGO_URI=mongodb://mongo:27017/finease
 JWT_SECRET=your_secret_key
-STRIPE_PUBLIC_KEY=pk_test_XXXXXXXXXXXXXXXX
-STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXX
-STRIPE_WEBHOOK_SECRET=whsec_XXXXXXXXXXXXXXXX
-CORS_ORIGIN=http://localhost:5173
+STRIPE_SECRET_KEY=sk_test_xxxxx
 ```
 
 ### `client/.env`
 
-```env
+```bash
 VITE_API_BASE=http://localhost:5000/api
-VITE_STRIPE_PUBLIC_KEY=pk_test_XXXXXXXXXXXXXXXX
-```
-
-> 💡 If you’re not using Docker, replace the MongoDB URI with `mongodb://localhost:27017/finease`.
-
----
-
-## 🐳 Run with Docker (Recommended)
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/<your-org>/FinEase.git
-cd FinEase
-```
-
-### 2️⃣ Add Environment Files
-
-Create `.env` files inside `server/` and `client/` folders (see examples above).
-
-### 3️⃣ Build and Run
-
-```bash
-docker compose up --build
-```
-
-✅ Once it’s running:
-
-* **Frontend:** [http://localhost:5173](http://localhost:5173)
-* **Backend API:** [http://localhost:5000/api](http://localhost:5000/api)
-* **MongoDB:** Accessible via `localhost:27017`
-
-### 4️⃣ Stop Containers
-
-```bash
-docker compose down -v
+VITE_STRIPE_PUBLIC_KEY=pk_test_xxxxx
 ```
 
 ---
 
-## 🧠 Common Docker Commands
-
-| Task                        | Command                           |
-| --------------------------- | --------------------------------- |
-| 🧱 Build & Start            | `docker compose up --build`       |
-| ▶️ Start in Background      | `docker compose up -d`            |
-| 🧹 Stop & Remove Containers | `docker compose down -v`          |
-| 🔍 Backend Logs             | `docker compose logs -f backend`  |
-| 💻 Frontend Logs            | `docker compose logs -f frontend` |
-| 🔄 Restart a Service        | `docker compose restart backend`  |
-
----
-
-## 🧪 Run Without Docker
-
-If you prefer running locally:
+## ⚡ Local Development Setup
 
 ### Backend
 
@@ -133,8 +113,6 @@ npm install
 npm run dev
 ```
 
-Backend available at → [http://localhost:5000/api](http://localhost:5000/api)
-
 ### Frontend
 
 ```bash
@@ -143,112 +121,85 @@ npm install
 npm run dev
 ```
 
-Frontend available at → [http://localhost:5173](http://localhost:5173)
+Then open:
+
+* Frontend → [http://localhost:5173](http://localhost:5173)
+* Backend → [http://localhost:5000/api](http://localhost:5000/api)
 
 ---
 
-## 🧰 docker-compose.yml Summary
+## 🐳 Run with Docker
 
-```yaml
-version: "3.9"
+Build and launch the entire stack:
 
-services:
-  mongo:
-    image: mongo:6
-    container_name: finease-mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - finease_net
-    restart: always
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+```bash
+docker-compose up --build
+```
 
-  backend:
-    build: ./server
-    container_name: finease-backend
-    env_file: ./server/.env
-    depends_on:
-      mongo:
-        condition: service_healthy
-    ports:
-      - "5000:5000"
-    networks:
-      - finease_net
-    restart: on-failure
+Access the application:
 
-  frontend:
-    build: ./client
-    container_name: finease-frontend
-    env_file: ./client/.env
-    depends_on:
-      - backend
-    ports:
-      - "5173:5173"
-    networks:
-      - finease_net
-    restart: unless-stopped
+* Frontend → [http://localhost:5173](http://localhost:5173)
+* Backend → [http://localhost:5000/api](http://localhost:5000/api)
 
-volumes:
-  mongo_data:
+---
 
-networks:
-  finease_net:
-    driver: bridge
+## ☁️ AWS Deployment – Elastic Beanstalk
+
+### Files Required
+
+* `aws-deploy/Dockerrun.aws.json` (deployment definition)
+* `aws-deploy/deploy.sh` (automated deploy script)
+
+### Steps
+
+```bash
+aws configure                  # Configure your AWS credentials
+docker build -t finease .      # Build Docker image
+./aws-deploy/deploy.sh         # Deploy to Elastic Beanstalk
+```
+
+Access your app:
+
+```
+http://finease-env.eba-xyz123.us-east-1.elasticbeanstalk.com
 ```
 
 ---
 
-## 💡 Workflow Summary
+## Example: `Dockerrun.aws.json`
 
-1. Launch FinEase via Docker.
-2. The backend connects to MongoDB and listens on port 5000.
-3. The frontend connects to the backend at port 5000 and serves on port 5173.
-4. Stripe handles all payments using client-side tokenization.
-5. Backend stores user and transaction data securely in MongoDB.
-
----
-
-## 🧯 Troubleshooting
-
-| Problem                  | Cause                                  | Solution                                             |
-| ------------------------ | -------------------------------------- | ---------------------------------------------------- |
-| `ECONNREFUSED ::1:27017` | Backend trying to connect to localhost | Use `mongodb://mongo:27017/finease` in server `.env` |
-| `ERR_EMPTY_RESPONSE`     | Frontend not ready                     | Restart frontend: `docker compose restart frontend`  |
-| Stripe 401               | Invalid or missing Stripe key          | Verify keys in `.env`                                |
-| Port conflict            | Port 5000 or 5173 already in use       | Change ports in `.env` or `docker-compose.yml`       |
-| Docker won’t start       | Daemon not running                     | Start Docker Desktop                                 |
+```json
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "finease",
+      "image": "<your-aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/finease:latest",
+      "essential": true,
+      "portMappings": [{ "containerPort": 5000, "hostPort": 5000 }],
+      "memory": 512,
+      "environment": [{ "name": "NODE_ENV", "value": "production" }]
+    }
+  ]
+}
+```
 
 ---
 
-## 🔒 Security Guidelines
+## 🔍 Troubleshooting
 
-* Never store raw card data — use Stripe tokens.
-* Always verify Stripe webhooks with the secret key.
-* Use HTTPS in production environments.
-* Keep JWT and Stripe secrets safe (do not commit `.env` files).
-
----
-
-## 🧾 Command Summary
-
-| Action                        | Command                           |
-| ----------------------------- | --------------------------------- |
-| 🚀 Start (build new images)   | `docker compose up --build`       |
-| ▶️ Start existing containers  | `docker compose up -d`            |
-| 🧹 Stop and remove everything | `docker compose down -v`          |
-| 🧠 Run backend manually       | `cd server && npm run dev`        |
-| 💻 Run frontend manually      | `cd client && npm run dev`        |
-| 🔍 Check backend logs         | `docker compose logs -f backend`  |
-| 🔍 Check frontend logs        | `docker compose logs -f frontend` |
+| Issue                | Cause                   | Solution                                |
+| -------------------- | ----------------------- | --------------------------------------- |
+| `Cannot GET /api`    | Missing route           | Verify Express routes                   |
+| `ECONNREFUSED mongo` | Mongo not ready         | Use `depends_on` in Docker Compose      |
+| Frontend not loading | Wrong API URL           | Update `VITE_API_BASE` in client `.env` |
+| Port 5000 in use     | Process already running | Stop container or change port           |
+| AWS deploy fails     | Missing credentials     | Add AWS access keys to GitHub or CLI    |
 
 ---
 
 ## 📜 License
 
-MIT © 2025 – FinEase Contributors
+**MIT License** © 2025 [Sumaiya Shah](https://github.com/sumaiyashah27)
+
+---
